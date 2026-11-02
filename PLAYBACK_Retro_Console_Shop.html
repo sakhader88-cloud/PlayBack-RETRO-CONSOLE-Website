@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PLAYBACK OUTLET :: Retro Console Shop by Shaik Abdul Khader</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a0a2a; --magenta:#ff2fd0; --cyan:#00e5ff; --yellow:#fff200;
+  --lime:#5cff5c; --orange:#ff8a00; --silver:#c9c9d6; --panel:#141433;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'VT323',monospace; color:var(--silver);
+  background:
+    repeating-linear-gradient(0deg, #0a0a2a 0 2px, #0d0d33 2px 4px),
+    linear-gradient(180deg,#0a0a2a,#160a3a 60%,#0a0a2a);
+  cursor:crosshair;
+  min-height:100vh;
+}
+a{color:var(--cyan);}
+.px{font-family:'Press Start 2P',monospace;}
+
+/* ===== MARQUEE TOP BAR ===== */
+.marquee-bar{
+  background:repeating-linear-gradient(45deg,var(--magenta),var(--magenta) 10px,var(--yellow) 10px,var(--yellow) 20px);
+  border-bottom:4px double #000; padding:5px 0; overflow:hidden; white-space:nowrap;
+}
+.marquee-bar span{
+  display:inline-block; padding-left:100%; animation:marquee 20s linear infinite;
+  font-family:'Press Start 2P',monospace; font-size:11px; color:#1a0033; text-shadow:1px 1px 0 #fff;
+}
+@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-100%);}}
+
+/* ===== HEADER ===== */
+header{
+  text-align:center; padding:26px 12px 18px;
+  background:radial-gradient(ellipse at top, #241056 0%, transparent 70%);
+  border-bottom:3px solid var(--magenta);
+}
+header h1{
+  font-family:'Press Start 2P',monospace; font-size:28px; margin:0;
+  color:var(--yellow);
+  text-shadow:3px 3px 0 var(--magenta), 6px 6px 0 var(--cyan);
+  letter-spacing:2px;
+}
+header .tagline{ font-size:20px; color:var(--cyan); margin-top:10px;}
+.badges-row{margin-top:12px;}
+.blink-badge{
+  display:inline-block; font-family:'Press Start 2P',monospace; font-size:9px;
+  background:var(--lime); color:#001a00; padding:4px 8px; margin:3px; border:2px solid #000;
+  animation:blink 1s steps(1) infinite;
+}
+@keyframes blink{50%{opacity:.3;}}
+
+/* ===== SHOPKEEPER PANEL ===== */
+#shopkeeper{
+  max-width:900px; margin:24px auto; background:var(--panel);
+  border:4px ridge var(--cyan); padding:16px 20px; position:relative;
+}
+#shopkeeper::before{
+  content:"MEET THE SHOPKEEPER"; position:absolute; top:-14px; left:16px;
+  background:var(--panel); font-family:'Press Start 2P',monospace; font-size:10px; color:var(--yellow); padding:0 8px;
+}
+.keeper-grid{display:flex; gap:18px; flex-wrap:wrap; align-items:flex-start; margin-top:10px;}
+.keeper-avatar{
+  width:90px; height:90px; flex:0 0 auto; border:3px solid var(--magenta);
+  background:linear-gradient(135deg,var(--magenta),var(--cyan));
+  display:flex; align-items:center; justify-content:center; font-size:40px;
+}
+.keeper-text{flex:1; min-width:260px;}
+.keeper-text h2{
+  font-family:'Press Start 2P',monospace; font-size:15px; color:var(--yellow); margin:0 0 6px;
+}
+.keeper-text .role{ color:var(--lime); font-size:19px; margin-bottom:8px;}
+.keeper-text p{ font-size:18px; line-height:1.4; margin:6px 0;}
+.skill-chip{
+  display:inline-block; font-size:11px; font-family:'Press Start 2P',monospace;
+  background:var(--navy); border:1px solid var(--cyan); color:var(--cyan);
+  padding:3px 6px; margin:2px; border-radius:2px;
+}
+
+/* ===== SHOP CONTROLS ===== */
+#controls{
+  max-width:1100px; margin:20px auto 6px; display:flex; justify-content:space-between;
+  align-items:center; padding:0 12px; flex-wrap:wrap; gap:10px;
+}
+#controls .filter-label{font-family:'Press Start 2P',monospace; font-size:10px; color:var(--yellow);}
+#genFilter{
+  font-family:'VT323'; font-size:18px; background:#000; color:var(--lime); border:2px solid var(--cyan); padding:4px;
+}
+#cartBtn{
+  font-family:'Press Start 2P',monospace; font-size:11px; padding:10px 14px;
+  background:var(--orange); color:#1a0500; border:3px outset #ffb85c; cursor:pointer;
+}
+#cartBtn:active{border-style:inset;}
+
+/* ===== PRODUCT GRID ===== */
+#grid{
+  max-width:1100px; margin:16px auto 60px; display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:18px; padding:0 12px;
+}
+.card{
+  background:var(--panel); border:3px solid #333; position:relative;
+  transition:transform .15s, box-shadow .15s;
+}
+.card:hover{ transform:translateY(-4px); box-shadow:0 6px 0 rgba(0,0,0,.5), 0 0 14px var(--cyan); border-color:var(--cyan); }
+.card .art{
+  height:120px; display:flex; align-items:center; justify-content:center; font-size:52px;
+  border-bottom:3px solid #333;
+}
+.card .info{ padding:10px 12px; }
+.card h3{ font-family:'Press Start 2P',monospace; font-size:12px; color:var(--yellow); margin:0 0 6px; line-height:1.5;}
+.card .yr{ font-size:14px; color:var(--cyan); font-family:'Press Start 2P',monospace; }
+.card p.desc{ font-size:16px; color:var(--silver); min-height:60px; margin:8px 0;}
+.card .price-row{ display:flex; justify-content:space-between; align-items:center; margin-top:6px;}
+.card .price{ font-family:'Press Start 2P',monospace; font-size:16px; color:var(--lime);}
+.card .stars{ color:var(--yellow); font-size:14px;}
+.addbtn{
+  width:100%; margin-top:10px; font-family:'Press Start 2P',monospace; font-size:10px;
+  padding:9px; background:var(--magenta); color:#1a0016; border:3px outset #ff8ae8; cursor:pointer;
+}
+.addbtn:active{border-style:inset;}
+.new-flag{
+  position:absolute; top:6px; right:-6px; background:var(--yellow); color:#1a1a00;
+  font-family:'Press Start 2P',monospace; font-size:8px; padding:3px 6px; transform:rotate(8deg);
+  border:1px solid #000;
+}
+
+/* ===== CART DRAWER ===== */
+#overlay{ position:fixed; inset:0; background:rgba(0,0,10,.7); display:none; z-index:200; }
+#overlay.open{display:block;}
+#cartDrawer{
+  position:fixed; top:0; right:-360px; width:340px; height:100%; background:var(--panel);
+  border-left:4px solid var(--cyan); z-index:210; transition:right .25s ease; padding:16px;
+  overflow-y:auto;
+}
+#cartDrawer.open{right:0;}
+#cartDrawer h2{ font-family:'Press Start 2P',monospace; font-size:14px; color:var(--yellow);}
+.cart-item{ border-bottom:1px dotted #555; padding:8px 0; font-size:16px; display:flex; justify-content:space-between; gap:6px;}
+.cart-item button{ background:#600; color:#fff; border:none; font-family:monospace; cursor:pointer; padding:2px 7px;}
+#cartTotal{ font-family:'Press Start 2P',monospace; font-size:14px; color:var(--lime); margin-top:14px; text-align:right;}
+#checkoutBtn{
+  width:100%; margin-top:12px; font-family:'Press Start 2P',monospace; font-size:11px; padding:10px;
+  background:var(--lime); color:#012201; border:3px outset #b6ffb6; cursor:pointer;
+}
+#closeCart{ float:right; background:none; border:2px solid var(--cyan); color:var(--cyan); cursor:pointer; font-family:monospace;}
+
+/* ===== TOAST ===== */
+#toast{
+  position:fixed; bottom:16px; left:50%; transform:translateX(-50%) translateY(20px);
+  background:var(--lime); color:#012201; font-family:'Press Start 2P',monospace; font-size:11px;
+  padding:10px 16px; border:2px solid #000; opacity:0; transition:all .3s; z-index:300; pointer-events:none;
+}
+#toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* ===== FOOTER ===== */
+footer{
+  text-align:center; padding:20px 12px 40px; font-size:15px; color:#8a8ab0; border-top:2px solid #333;
+}
+footer .px{font-size:10px; color:var(--cyan); display:block; margin-bottom:8px;}
+
+/* sparkle cursor */
+.sparkle{ position:fixed; pointer-events:none; font-size:13px; z-index:9998; animation:sfade .7s forwards; }
+@keyframes sfade{ to{ transform:translateY(-18px) scale(.3); opacity:0; } }
+
+#visitorBox{
+  position:fixed; bottom:10px; left:10px; background:#000; border:3px ridge var(--silver);
+  padding:4px 8px; z-index:50; font-family:'VT323'; font-size:12px; color:var(--yellow);
+}
+#visitorBox b{ color:var(--lime); font-size:20px; letter-spacing:2px;}
+</style>
+</head>
+<body>
+
+<div class="marquee-bar"><span>&#127918; WELCOME TO PLAYBACK OUTLET &#127918; YOUR ONE-STOP SHOP FOR 2000s GAMING CONSOLES &#127918; FREE SHIPPING ON ORDERS OVER 999 RETRO-COINS &#127918; RUN BY SHAIK ABDUL KHADER, ASPIRING DATA ANALYST &amp; PYTHON DEVELOPER &#127918; BEST VIEWED AT 800x600 &#127918;</span></div>
+
+<header>
+  <h1>PLAYBACK OUTLET</h1>
+  <div class="tagline">&raquo; the 2000s console shop &laquo;</div>
+  <div class="badges-row">
+    <span class="blink-badge">NEW ARRIVALS!</span>
+    <span class="blink-badge">HOT DEALS</span>
+    <span class="blink-badge">SIGN THE GUESTBOOK</span>
+  </div>
+</header>
+
+<div id="shopkeeper">
+  <div class="keeper-grid">
+    <div class="keeper-avatar">&#128100;</div>
+    <div class="keeper-text">
+      <h2>SHAIK ABDUL KHADER</h2>
+      <div class="role">Aspiring Data Analyst &bull; Python &bull; SQL &bull; Power BI &bull; Machine Learning</div>
+      <p>Computer Science Engineering graduate (AI &amp; ML) with hands-on experience in Python, data analysis, and visualization through academic projects, internships, and certifications. Skilled in exploratory data analysis, statistical reasoning, Power BI dashboards, and machine learning workflows using Pandas, NumPy, and Scikit-Learn. Brings an added edge in cybersecurity and data-handling best practices, backed by a consistent record of completing structured technical training.</p>
+      <p style="font-size:15px; color:#9a9ac0;">This shop was coded end-to-end by me &mdash; HTML/CSS/JS front end, with cart &amp; guestbook data persisted through a lightweight storage layer acting as the backend. It's a personal project celebrating the console generation I grew up with.</p>
+      <div>
+        <span class="skill-chip">Python</span><span class="skill-chip">SQL</span><span class="skill-chip">Power BI</span>
+        <span class="skill-chip">Pandas/NumPy</span><span class="skill-chip">Scikit-Learn</span><span class="skill-chip">TensorFlow</span>
+        <span class="skill-chip">Java</span><span class="skill-chip">CompTIA Security+</span><span class="skill-chip">eCPPT</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="controls">
+  <div><span class="filter-label">FILTER:</span>
+    <select id="genFilter">
+      <option value="all">All Consoles</option>
+      <option value="sony">Sony</option>
+      <option value="microsoft">Microsoft</option>
+      <option value="nintendo">Nintendo</option>
+      <option value="sega">Sega</option>
+      <option value="handheld">Handhelds</option>
+    </select>
+  </div>
+  <button id="cartBtn">&#128722; CART (<span id="cartCount">0</span>)</button>
+</div>
+
+<div id="grid"></div>
+
+<div id="overlay"></div>
+<div id="cartDrawer">
+  <button id="closeCart">CLOSE X</button>
+  <h2>&#128722; YOUR CART</h2>
+  <div id="cartItems"></div>
+  <div id="cartTotal">TOTAL: 0 RC</div>
+  <button id="checkoutBtn">CHECKOUT</button>
+</div>
+
+<div id="toast"></div>
+<div id="visitorBox">SHOP VISITS<br><b id="visitCount">000000</b></div>
+
+<footer>
+  <span class="px">PLAYBACK OUTLET v1.0</span>
+  Built by Shaik Abdul Khader &mdash; Aspiring Data Analyst &amp; Python Developer &middot;
+  <a href="https://github.com/sakhader88-cloud" target="_blank" rel="noopener">GitHub</a> &middot;
+  <a href="https://linkedin.com/in/shaik-abdul-khader-7b3b2a236" target="_blank" rel="noopener">LinkedIn</a><br>
+  Prices are in fictional Retro-Coins (RC) for demo purposes only. No real transactions occur.
+</footer>
+
+<script>
+/* ===================== PRODUCT DATA ===================== */
+const PRODUCTS = [
+  {id:'ps2', name:'PlayStation 2', brand:'sony', year:1999.9|0, yr:'2000', emoji:'\u{1F3AE}', color:'#3b4b8a',
+   desc:'Best-selling console of all time. DVD playback, massive library, backward compatible with PS1.', price:249, stars:5, isNew:false},
+  {id:'xbox', name:'Xbox (Original)', brand:'microsoft', yr:'2001', emoji:'\u{1F579}\uFE0F', color:'#2e7d32',
+   desc:'Microsoft\u2019s console debut. Built-in hard drive, Xbox Live online play, home of Halo.', price:299, stars:4, isNew:false},
+  {id:'gamecube', name:'Nintendo GameCube', brand:'nintendo', yr:'2001', emoji:'\u{1F4E6}', color:'#7c4dff',
+   desc:'Compact purple cube, mini-disc media, legendary first-party Nintendo titles.', price:199, stars:4, isNew:false},
+  {id:'gba', name:'Game Boy Advance', brand:'handheld', yr:'2001', emoji:'\u{1F3AE}', color:'#6a1b9a',
+   desc:'32-bit handheld powerhouse. Clamshell SP model added a backlit screen.', price:99, stars:5, isNew:false},
+  {id:'psp', name:'PSP (PlayStation Portable)', brand:'handheld', yr:'2004', emoji:'\u{1F4F1}', color:'#455a64',
+   desc:'Widescreen handheld with UMD movies, games, and MP3 playback on the go.', price:199, stars:4, isNew:true},
+  {id:'nds', name:'Nintendo DS', brand:'handheld', yr:'2004', emoji:'\u{1F4D2}', color:'#e53935',
+   desc:'Dual-screen, touch-enabled handheld. Home of Brain Age and Nintendogs.', price:149, stars:5, isNew:true},
+  {id:'x360', name:'Xbox 360', brand:'microsoft', yr:'2005', emoji:'\u{1F579}\uFE0F', color:'#43a047',
+   desc:'HD gaming era begins. Xbox Live Arcade, achievements, party chat.', price:399, stars:5, isNew:true},
+  {id:'ps3', name:'PlayStation 3', brand:'sony', yr:'2006', emoji:'\u{1F3AE}', color:'#1565c0',
+   desc:'Built-in Blu-ray player, Cell processor, free online play via PSN.', price:499, stars:4, isNew:true},
+  {id:'wii', name:'Nintendo Wii', brand:'nintendo', yr:'2006', emoji:'\u{1F58C}\uFE0F', color:'#fdd835',
+   desc:'Motion-controlled gaming for everyone. Wii Sports sold the whole living room.', price:249, stars:5, isNew:true},
+  {id:'dreamcast', name:'Sega Dreamcast', brand:'sega', yr:'1999', emoji:'\u{1F30C}', color:'#fb8c00',
+   desc:'Sega\u2019s swan-song console. Built-in modem, VMU memory cards, cult classic library.', price:149, stars:4, isNew:false},
+];
+
+/* ===================== RENDER GRID ===================== */
+const grid = document.getElementById('grid');
+function stars(n){ return '\u2605'.repeat(n) + '\u2606'.repeat(5-n); }
+
+function renderGrid(filter){
+  grid.innerHTML = '';
+  PRODUCTS
+    .filter(p => filter === 'all' || p.brand === filter)
+    .forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        ${p.isNew ? '<div class="new-flag">NEW!</div>' : ''}
+        <div class="art" style="background:${p.color}22;">${p.emoji}</div>
+        <div class="info">
+          <h3>${p.name}</h3>
+          <div class="yr">RELEASED ${p.yr}</div>
+          <p class="desc">${p.desc}</p>
+          <div class="price-row">
+            <span class="price">${p.price} RC</span>
+            <span class="stars">${stars(p.stars)}</span>
+          </div>
+          <button class="addbtn" data-id="${p.id}">+ ADD TO CART</button>
+        </div>`;
+      grid.appendChild(card);
+    });
+  grid.querySelectorAll('.addbtn').forEach(btn => {
+    btn.addEventListener('click', () => addToCart(btn.dataset.id));
+  });
+}
+renderGrid('all');
+document.getElementById('genFilter').addEventListener('change', e => renderGrid(e.target.value));
+
+/* ===================== CART (persistent "backend") ===================== */
+let cart = {}; // id -> qty
+
+async function loadCart(){
+  try{
+    const res = await window.storage.get('playback-cart', false);
+    cart = res ? JSON.parse(res.value) : {};
+  }catch(e){ cart = {}; }
+  renderCart();
+}
+async function saveCart(){
+  try{ await window.storage.set('playback-cart', JSON.stringify(cart), false); }
+  catch(e){ /* non-fatal */ }
+}
+function addToCart(id){
+  cart[id] = (cart[id] || 0) + 1;
+  saveCart();
+  renderCart();
+  showToast('ADDED TO CART!');
+}
+function removeFromCart(id){
+  delete cart[id];
+  saveCart();
+  renderCart();
+}
+function renderCart(){
+  const itemsEl = document.getElementById('cartItems');
+  const countEl = document.getElementById('cartCount');
+  const totalEl = document.getElementById('cartTotal');
+  itemsEl.innerHTML = '';
+  let total = 0, count = 0;
+  Object.entries(cart).forEach(([id, qty]) => {
+    const p = PRODUCTS.find(x => x.id === id);
+    if(!p) return;
+    total += p.price * qty;
+    count += qty;
+    const row = document.createElement('div');
+    row.className = 'cart-item';
+    row.innerHTML = `<span>${p.emoji} ${p.name} &times;${qty}</span><button data-id="${id}">X</button>`;
+    row.querySelector('button').onclick = () => removeFromCart(id);
+    itemsEl.appendChild(row);
+  });
+  if(count === 0) itemsEl.innerHTML = '<p style="font-size:15px;">Your cart is empty. Go grab a console!</p>';
+  countEl.textContent = count;
+  totalEl.textContent = 'TOTAL: ' + total + ' RC';
+}
+loadCart();
+
+document.getElementById('cartBtn').onclick = () => {
+  document.getElementById('cartDrawer').classList.add('open');
+  document.getElementById('overlay').classList.add('open');
+};
+document.getElementById('closeCart').onclick = closeCartDrawer;
+document.getElementById('overlay').onclick = closeCartDrawer;
+function closeCartDrawer(){
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+}
+document.getElementById('checkoutBtn').onclick = async () => {
+  if(Object.keys(cart).length === 0){ showToast('CART IS EMPTY!'); return; }
+  showToast('ORDER PLACED! (demo only)');
+  cart = {};
+  await saveCart();
+  renderCart();
+  setTimeout(closeCartDrawer, 900);
+};
+
+/* ===================== TOAST ===================== */
+let toastTimer = null;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 1600);
+}
+
+/* ===================== VISIT COUNTER (persistent "backend") ===================== */
+async function bumpVisits(){
+  try{
+    let count = 1;
+    try{
+      const res = await window.storage.get('playback-visits', true);
+      count = res ? (parseInt(res.value,10) + 1) : 1;
+    }catch(e){ count = 1; }
+    await window.storage.set('playback-visits', String(count), true);
+    document.getElementById('visitCount').textContent = String(count).padStart(6,'0');
+  }catch(e){
+    document.getElementById('visitCount').textContent = '??????';
+  }
+}
+bumpVisits();
+
+/* ===================== CURSOR SPARKLE ===================== */
+const sparkleChars = ['\u2726','\u2727','\u2605','\u2736','\u25C6'];
+let lastSparkle = 0;
+window.addEventListener('mousemove', e => {
+  const now = Date.now();
+  if(now - lastSparkle < 70) return;
+  lastSparkle = now;
+  const el = document.createElement('div');
+  el.className = 'sparkle';
+  el.textContent = sparkleChars[Math.floor(Math.random()*sparkleChars.length)];
+  el.style.left = e.clientX + 'px';
+  el.style.top = e.clientY + 'px';
+  el.style.color = ['#ff2fd0','#00e5ff','#fff200','#5cff5c'][Math.floor(Math.random()*4)];
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 700);
+});
+</script>
+</body>
+</html>
